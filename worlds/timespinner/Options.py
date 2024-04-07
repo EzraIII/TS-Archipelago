@@ -401,6 +401,16 @@ class PresentAccessWithWheelAndSpindle(Toggle):
     display_name = "Past Wheel & Spindle Warp"
 
 
+class GlitchesLogic(Toggle):
+    """Items that can only be obtained through glitches and tricks are considered in logic. (exceptions apply)"""
+    display_name = "Glitches Logic"
+
+
+class TwoPlayerLogic(Toggle):
+    """Items that require the use of a second player are considered in logic."""
+    display_name = "2 Player Logic"
+
+
 # Some options that are available in the timespinner randomizer arent currently implemented
 timespinner_options: Dict[str, Option] = {
     "StartWithJewelryBox": StartWithJewelryBox,
@@ -438,6 +448,8 @@ timespinner_options: Dict[str, Option] = {
     "TrapChance": TrapChance,
     "Traps": Traps,
     "PresentAccessWithWheelAndSpindle": PresentAccessWithWheelAndSpindle,
+    "GlitchesLogic": GlitchesLogic,
+    "TwoPlayerLogic": TwoPlayerLogic,
     "DeathLink": DeathLink,
 }
 
