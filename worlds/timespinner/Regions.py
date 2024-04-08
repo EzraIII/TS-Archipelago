@@ -70,7 +70,7 @@ def create_regions_and_locations(world: MultiWorld, player: int, precalculated_w
     logic = TimespinnerLogic(world, player, precalculated_weights)
 
     connect(world, player, 'Lake desolation', 'Lower lake desolation', lambda state: flooded.flood_lake_desolation or logic.has_timestop(state) or state.has('Talaria Attachment', player) or is_option_enabled(world, player, "GlitchesLogic"))
-    connect(world, player, 'Lake desolation', 'Upper lake desolation', lambda state: (logic.has_fire(state) or is_option_enabled(world, player, "TwoPlayerLogic")) and state.can_reach('Upper Lake Serene', 'Region', player))
+    connect(world, player, 'Lake desolation', 'Upper lake desolation', lambda state: logic.has_fire(state) and state.can_reach('Upper Lake Serene', 'Region', player))
     connect(world, player, 'Lake desolation', 'Skeleton Shaft', lambda state: flooded.flood_lake_desolation or logic.has_doublejump(state)) # TODO: EnemyRando Support
     connect(world, player, 'Lake desolation', 'Space time continuum', logic.has_teleport)
     connect(world, player, 'Upper lake desolation', 'Lake desolation')
@@ -80,7 +80,7 @@ def create_regions_and_locations(world: MultiWorld, player: int, precalculated_w
     connect(world, player, 'Eastern lake desolation', 'Space time continuum', logic.has_teleport)
     connect(world, player, 'Eastern lake desolation', 'Library')
     connect(world, player, 'Eastern lake desolation', 'Lower lake desolation')
-    connect(world, player, 'Eastern lake desolation', 'Upper lake desolation', lambda state: (logic.has_fire(state) or is_option_enabled(world, player, "TwoPlayerLogic")) and state.can_reach('Upper Lake Serene', 'Region', player) or is_option_enabled(world, player, "GlitchesLogic") and logic.has_doublejump(state)) # TODO: EnemyRando Support
+    connect(world, player, 'Eastern lake desolation', 'Upper lake desolation', lambda state: logic.has_fire(state) and state.can_reach('Upper Lake Serene', 'Region', player) or is_option_enabled(world, player, "GlitchesLogic") and logic.has_doublejump(state)) # TODO: EnemyRando Support
     connect(world, player, 'Library', 'Eastern lake desolation')
     connect(world, player, 'Library', 'Library top', lambda state: logic.has_doublejump(state) or state.has('Talaria Attachment', player) or is_option_enabled(world, player, "GlitchesLogic"))
     connect(world, player, 'Library', 'Varndagroth tower left', lambda state: logic.has_keycard_D or is_option_enabled(world, player, "GlitchesLogic") and logic.has_doublejump(state))
