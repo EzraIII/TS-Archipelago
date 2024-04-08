@@ -105,7 +105,7 @@ def create_regions_and_locations(world: MultiWorld, player: int, precalculated_w
     connect(world, player, 'Sealed Caves (Sirens)', 'Space time continuum', logic.has_teleport)
     connect(world, player, 'Military Fortress', 'Varndagroth tower right (lower)', lambda state: logic.can_kill_all_3_bosses or is_option_enabled(world, player, "GlitchesLogic") and state.has('Lightwall', player) and state.has('Celestial Sash', player) and state.has('Succubus Hairpin', player))
     connect(world, player, 'Military Fortress', 'Temporal Gyre', lambda state: logic.can_kill_all_3_bosses and state.has('Timespinner Wheel', player))
-    connect(world, player, 'Military Fortress', 'Military Fortress (hangar)', logic.has_doublejump or is_option_enabled(world, player, "GlitchesLogic") and logic.has_timestop) # Maybe this should just be in normal logic
+    connect(world, player, 'Military Fortress', 'Military Fortress (hangar)', logic.has_timestop)
     connect(world, player, 'Military Fortress (hangar)', 'Military Fortress')
     connect(world, player, 'Military Fortress (hangar)', 'The lab', lambda state: logic.has_keycard_B(state) and (state.has('Water Mask', player) if flooded.flood_lab else logic.has_doublejump(state)))
     connect(world, player, 'Temporal Gyre', 'Military Fortress')
