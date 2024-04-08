@@ -26,6 +26,7 @@ def create_regions_and_locations(world: MultiWorld, player: int, precalculated_w
         create_region(world, player, locations_per_region, 'Sealed Caves (Sirens)'),
         create_region(world, player, locations_per_region, 'Military Fortress'),
         create_region(world, player, locations_per_region, 'Military Fortress (hangar)'),
+        create_region(world, player, locations_per_region, 'Before the lab'),
         create_region(world, player, locations_per_region, 'The lab'),
         create_region(world, player, locations_per_region, 'The lab (power off)'),
         create_region(world, player, locations_per_region, 'The lab (upper)'),
@@ -107,9 +108,12 @@ def create_regions_and_locations(world: MultiWorld, player: int, precalculated_w
     connect(world, player, 'Military Fortress', 'Temporal Gyre', lambda state: logic.can_kill_all_3_bosses and state.has('Timespinner Wheel', player))
     connect(world, player, 'Military Fortress', 'Military Fortress (hangar)', logic.has_timestop)
     connect(world, player, 'Military Fortress (hangar)', 'Military Fortress')
-    connect(world, player, 'Military Fortress (hangar)', 'The lab', lambda state: logic.has_keycard_B(state) and (state.has('Water Mask', player) if flooded.flood_lab else logic.has_doublejump(state)))
+    connect(world, player, 'Military Fortress (hangar)', 'Before the lab', lambda state: state.has('Water Mask', player) if flooded.flood_lab else (logic.has_timestop(state) or state.has('Talaria', player)))
+    connect(world, player, 'Before the lab', 'Military Fortress (hangar)', lambda state: state.has('Water Mask', player) if flooded.flood_lab else (logic.has_doublejump(state) or logic.has_fastjump_on_npc(state)))
+    connect(world, player, 'Before the lab', 'Space time continuum', logic.has_teleport)
+    connect(world, player, 'Before the lab', 'The lab', logic.has_keycard_B)
     connect(world, player, 'Temporal Gyre', 'Military Fortress')
-    connect(world, player, 'The lab', 'Military Fortress')
+    connect(world, player, 'The lab', 'Before the lab')
     connect(world, player, 'The lab', 'The lab (power off)', logic.has_doublejump_of_npc)
     connect(world, player, 'The lab (power off)', 'The lab', lambda state: not flooded.flood_lab or state.has('Water Mask', player))
     connect(world, player, 'The lab (power off)', 'The lab (upper)', logic.has_forwarddash_doublejump)
