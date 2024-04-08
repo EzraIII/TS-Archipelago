@@ -14,6 +14,7 @@ class TimespinnerLogic:
     present_keys_unlock: Union[str, None]
     past_keys_unlock: Union[str, None]
     time_keys_unlock: Union[str, None]
+    two_player_logic: bool
 
     def __init__(self, world: MultiWorld, player: int, precalculated_weights: PreCalculatedWeights):
         self.player = player
@@ -21,6 +22,7 @@ class TimespinnerLogic:
         self.flag_specific_keycards = is_option_enabled(world, player, "SpecificKeycards")
         self.flag_eye_spy = is_option_enabled(world, player, "EyeSpy")
         self.flag_unchained_keys = is_option_enabled(world, player, "UnchainedKeys")
+        self.two_player_logic = is_option_enabled(world, player, "TwoPlayerLogic")
 
         if precalculated_weights:
             if self.flag_unchained_keys:
@@ -58,7 +60,7 @@ class TimespinnerLogic:
         return state.has_any({'Lightwall', 'Celestial Sash'}, self.player)
     
     def has_fire(self, state: CollectionState) -> bool:
-        return state.has_any({'Fire Orb', 'Infernal Flames', 'Pyro Ring', 'Djinn Inferno'}, self.player)
+        return state.has_any({'Fire Orb', 'Infernal Flames', 'Pyro Ring', 'Djinn Inferno'}, self.player) or self.two_player_logic
 
     def has_pink(self, state: CollectionState) -> bool:
         return state.has_any({'Plasma Orb', 'Plasma Geyser', 'Royal Ring'}, self.player)
