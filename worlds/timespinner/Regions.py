@@ -166,7 +166,7 @@ def create_regions_and_locations(world: MultiWorld, player: int, precalculated_w
     #connect(world, player, 'Ancient Pyramid (entrance)', 'The lab (upper)', lambda state: not is_option_enabled(world, player, "EnterSandman"))
     connect(world, player, 'Ancient Pyramid (entrance)', 'Ancient Pyramid (left)', logic.has_doublejump)
     connect(world, player, 'Ancient Pyramid (left)', 'Ancient Pyramid (entrance)')
-    connect(world, player, 'Ancient Pyramid (left)', 'Ancient Pyramid (right)', flooded.flood_pyramid_shaft or logic.has_upwarddash or is_option_enabled(world, player, "GlitchesLogic") and logic.has_forwarddash_doublejump)
+    connect(world, player, 'Ancient Pyramid (left)', 'Ancient Pyramid (right)', lambda state: flooded.flood_pyramid_shaft or state.has('Celestial Sash', player) or is_option_enabled(world, player, "GlitchesLogic") and logic.has_forwarddash_doublejump(state))
     connect(world, player, 'Ancient Pyramid (right)', 'Ancient Pyramid (entrance)', logic.has_doublejump)
     connect(world, player, 'Space time continuum', 'Lake desolation', lambda state: logic.can_teleport_to(state, "Present", "GateLakeDesolation"))
     connect(world, player, 'Space time continuum', 'Lower lake desolation', lambda state: logic.can_teleport_to(state, "Present", "GateKittyBoss"))
